@@ -26,7 +26,7 @@ footer {visibility: hidden;}
 
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
+st.write('asda',st.secrets['api_key'])
 api_key='aykSh95mHDF3jkpZrhOueUkK5QQZIpmR45d1tZXBFQlsO1z6dYrJpEZKpZqb8KP5'
 api_secret='2L3FYDFJSgxhg3X1cp4BOjvzWPYEf5O5ColCUC571SXdcNUlb0FNtJpPZC4Xtgt4'
 client = Client(api_key, api_secret)
