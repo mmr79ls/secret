@@ -26,7 +26,8 @@ footer {visibility: hidden;}
 
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
+api_key=st.secrets["api_key"]
+api_secret=st.secret["api_secret"]
 client = Client(api_key, api_secret)
 
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
