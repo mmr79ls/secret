@@ -122,9 +122,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration=6):
 ex=ccxt.binance()
 f=pd.DataFrame(ex.fetch_markets())
 symbols=f[f['active']==True].symbol.unique()
-#symbols=ex.symbols
-def comp_prev(a,shift=1):
-    return (a.High-a.Close.shift(shift))*100/a.Close.shift(shift)#a.High
+
 
 s=[]
 u=[]
@@ -148,6 +146,7 @@ for i in z:
     #print(i,'  ',t)
     if(t==-7):
         symbols.append(i)  
+st.write(len(symbols))
 
 #symbols=symbols[symbols not in ['YOYOW/BTC']]
 
@@ -272,7 +271,7 @@ def plot_symbol(symbol,profit=0):
 tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
 duration=st.number_input('Number of hours before',1)         
 df1=scan(symbols,tf,duration)
-symbols_f=df1.symbol.unique()
+symbols_f=df1[df1['signal']!=0].symbol.unique()
 st.dataframe(df1)
 symbol=st.selectbox('Symbol',symbols_f)
           
