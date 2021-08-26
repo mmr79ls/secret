@@ -30,7 +30,7 @@ api_key='aykSh95mHDF3jkpZrhOueUkK5QQZIpmR45d1tZXBFQlsO1z6dYrJpEZKpZqb8KP5'
 api_secret='2L3FYDFJSgxhg3X1cp4BOjvzWPYEf5O5ColCUC571SXdcNUlb0FNtJpPZC4Xtgt4'
 client = Client(api_key, api_secret)
 
-
+@st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def get_orderbook(symbol):
     r = requests.get("https://api.binance.com/api/v3/depth",
                      params=dict(symbol=symbol,limit=1000))
@@ -52,9 +52,10 @@ def get_orderbook(symbol):
     orderbook=pd.concat([bid,ask])
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
+@st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def pump(symbol,profit_flag=1,tf='15m',duration=6):
-    duration=str(duration) +" hour ago UTC"
-    df=pd.DataFrame(client.get_historical_klines(symbol, tf, duration),columns=['Time','Open','High','Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','ignore'])
+    duration=str(duration) +"  ago UTC"
+    df=pd.DataFrame(client.get_historical_klines(symbol.replace("/",""), tf, duration),columns=['Time','Open','High','Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','ignore'])
     df=df.astype( dtype={
                      'Open': float,
                      'High': float,
@@ -98,7 +99,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration=6):
      
     z=z[(abs(z['Delta_change'])<np.inf)]
     z['KPI']=z['Delta_change']*z['percent_buy']
-  
+ 
     z['signal']=z['Delta_change'].apply(lambda x: signal(x))
     z['profit']=0
     if profit_flag==1:
@@ -153,22 +154,26 @@ st.write(len(symbols))
 
 import warnings
 warnings.filterwarnings('ignore')
-df1=pd.DataFrame()
+
 
 def signal(x):
     sig=0
-    if x>200:
+    if x>500:
         sig=1
-    elif x<-200:
+    elif x<-500:
         sig=-1
     return sig
-@st.cache(allow_output_mutation=True)
+@st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def scan(symbols,tf,duration):
     df1=pd.DataFrame()
+    #st.write(len(symbols))
     for symbol in symbols:
   #  symbol='ARK/BTC'
-   
-        z=pump(symbol.replace("/",""),0,tf,duration)
+  
+        symbol=symbol.replace("/","")
+        #st.write(symbol)
+        z=pump(symbol,0,tf,duration)
+        
         #z['Close'].plot()
         #z['Delta_change'].plot(secondary_y=True)
         #p=pd.DataFrame()
@@ -180,10 +185,11 @@ def scan(symbols,tf,duration):
         
         z['symbol']=symbol
         z=z[z['signal']!=0]
-        
+      
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
-        return df1
+
+    return df1
       
 
 
@@ -192,8 +198,9 @@ def scan(symbols,tf,duration):
 
 @st.cache(allow_output_mutation=True)
 def plot_symbol(symbol,profit=0):
-    symbol=symbol
-    z=pump(symbol.replace("/",""),profit)
+    symbol=symbol.replace("/","")
+    #st.write(symbol)
+    z=pump(symbol,profit)
     fig=go.Figure(data=[go.Candlestick(x=z.index,
                     open=z['Open'],
                     high=z['High'],
@@ -269,11 +276,10 @@ def plot_symbol(symbol,profit=0):
     return fig,z
 
 tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
-duration=st.number_input('Number of hours before',1)         
+duration=st.text_input('Number of hours/days before','1 day')         
 df1=scan(symbols,tf,duration)
 symbols_f=df1[df1['signal']!=0].symbol.unique()
-st.dataframe(df1)
-symbol=st.selectbox('Symbol',symbols_f)
+symbol=st.sidebar.radio('Symbol',symbols_f)
           
 fig,z=plot_symbol(symbol,profit=0)
 st.write(fig)
