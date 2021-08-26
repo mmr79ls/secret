@@ -26,7 +26,7 @@ footer {visibility: hidden;}
 
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-
+st.write(st.secrets["a"]
 api_key=st.secrets.db_credentials.api_key
 api_secret=st.secrets.db_credentials.api_secret
 client = Client(api_key, api_secret)
