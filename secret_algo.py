@@ -26,10 +26,9 @@ footer {visibility: hidden;}
 
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
-st.write(st.secrets)
-st.write("DB username:", st.secrets["api_key"])
-api_key=st.secrets["api_key"]
-api_secret=st.secret["api_secret"]
+
+api_key=st.secrets.db_credentials.api_key
+api_secret=st.secrets.db_credentials.api_secret
 client = Client(api_key, api_secret)
 
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
