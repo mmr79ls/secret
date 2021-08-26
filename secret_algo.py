@@ -27,8 +27,8 @@ footer {visibility: hidden;}
 """
 st.markdown(hide_streamlit_style, unsafe_allow_html=True) 
 st.write(st.secrets["a"])
-#api_key=st.secrets.db_credentials.api_key
-#api_secret=st.secrets.db_credentials.api_secret
+api_key='aykSh95mHDF3jkpZrhOueUkK5QQZIpmR45d1tZXBFQlsO1z6dYrJpEZKpZqb8KP5'
+api_secret='2L3FYDFJSgxhg3X1cp4BOjvzWPYEf5O5ColCUC571SXdcNUlb0FNtJpPZC4Xtgt4'
 client = Client(api_key, api_secret)
 
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
