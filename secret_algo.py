@@ -105,18 +105,17 @@ def pump(symbol,profit_flag=1,tf='15m',duration=6):
     z['profit']=0
     if profit_flag==1:
         for i in z.index:
-            t=z[z.index==i]
+            t=z[z.index==i][:(4*24*7)]
             try:
-                if (t['signal']==1)[0]:
+                if (t['signal']!=0)[0]:
                     p=pd.DataFrame()
                     p=z[z.index>i]
                     z['profit'][i]=p.Close.max()*100/z[z.index==i].Close.max()
-                elif   (t['signal']==-1)[0]:
-                    p=pd.DataFrame()
-                    p=z[z.index>i].index[0]
-                    z['profit'][i]=p.Close.min()*100/z[z.index==i].Close.max()
+                    
+               
             except:
                 continue
+            
     #z['Delta_change'].plot(secondary_y=True)
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
@@ -173,7 +172,7 @@ def scan(symbols,tf,duration):
   
         symbol=symbol.replace("/","")
         #st.write(symbol)
-        z=pump(symbol,0,tf,duration)
+        z=pump(symbol,1,tf,duration)
         
         #z['Close'].plot()
         #z['Delta_change'].plot(secondary_y=True)
