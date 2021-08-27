@@ -280,10 +280,11 @@ tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
 duration=st.text_input('Number of hours/days before','1 day')         
 df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
-df1=df1[df1.index>strt]
-symbols_f=df1[df1['signal']!=0].symbol.unique()
+df=df1[df1.index>strt]
+symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
           
 fig,z=plot_symbol(symbol,profit=0)
 st.write(fig)
+st.dataframe(df)
