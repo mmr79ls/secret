@@ -276,7 +276,10 @@ def plot_symbol(symbol,profit=0):
     return fig,z
 
 tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
-duration=st.text_input('Number of hours/days before','1 day')         
+duration=st.text_input('Number of hours/days before','1 day') 
+ss=st.selectbox('USDT or BTC',['USDT','BTC'])
+if ss=='BTC':
+    symbols=symbo
 df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 df=df1[df1.index>strt]
