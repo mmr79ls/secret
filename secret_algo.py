@@ -4,6 +4,7 @@ Created on Thu Aug 26 14:43:07 2021
 
 @author: mraslan
 """
+import joblib
 import pickle
 from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import pandas as pd
@@ -165,8 +166,10 @@ def signal(x):
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def scan(symbols,tf,duration):
-    pickle_in = open('classifier.pkl', 'rb') 
-    model = pickle.load(pickle_in)
+    #pickle_in = open('classifier.pkl', 'rb') 
+    #model = pickle.load(pickle_in)
+    filename = 'secret_model.sav'
+    model = joblib.load(filename)
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
