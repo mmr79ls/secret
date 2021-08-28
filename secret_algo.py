@@ -192,8 +192,8 @@ def scan(symbols,tf,duration):
         df1=pd.concat([z,df1])
     X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
     
-    yy= model.predict(X_real)
-    st.write(yy)
+    #yy= model.predict(X_real)
+    yy=0
     df1['pred']=yy
    
     return df1
