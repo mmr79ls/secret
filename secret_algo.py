@@ -302,7 +302,7 @@ else :
     AI=0
 
 df=df1[df1.index>strt]
-total=(len(df[df['signal']!=0].symbol.unique())
+total=len(df[df['signal']!=0].symbol.unique())
 st.write('All signals detected are for symbols '+str(total))
 df=df[df['pred']==AI]
 detected_AI=(len(df[df['signal']!=0].symbol.unique())
