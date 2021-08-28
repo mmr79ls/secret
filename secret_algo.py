@@ -300,18 +300,24 @@ if ss=='BTC':
     symbols=symbo
 df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
+df=df1[df1.index>strt]
+
+total=len(df[df['signal']!=0].symbol.unique())
+st.write('All signals detected are for symbols '+str(total))
 AI=st.selectbox('Add AI in prediction',['yes','no'])
 if AI=='yes':
     AI=1
+    df=df[df['pred']==AI]
+    df=df[df['pred']==AI]
+    detected_AI=len(df[df['signal']!=0].symbol.unique())
+    st.write('AI signals detected from all '+str(round(detected_AI/total,2)))
 else :
     AI=0
+    df=df
 
-df=df1[df1.index>strt]
-total=len(df[df['signal']!=0].symbol.unique())
-st.write('All signals detected are for symbols '+str(total))
-df=df[df['pred']==AI]
-detected_AI=len(df[df['signal']!=0].symbol.unique())
-st.write('AI signals detected from all '+str(round(detected_AI/total,2)))
+
+
+
 symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
