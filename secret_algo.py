@@ -296,7 +296,7 @@ if ss=='BTC':
 df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 AI=st.selectbox('Add AI in prediction',['yes','no'])
-if AI=='Yes':
+if AI=='yes':
     AI=1
 else :
     AI=0
