@@ -4,7 +4,7 @@ Created on Thu Aug 26 14:43:07 2021
 
 @author: mraslan
 """
-
+import joblib
 from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import pandas as pd
 import matplotlib.pyplot as plt
