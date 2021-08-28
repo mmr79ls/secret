@@ -165,7 +165,7 @@ def signal(x):
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def scan(symbols,tf,duration):
-    filename = 'finalized_model.sav'
+    filename = 'secret_model.sav'
     model = joblib.load(filename)
     df1=pd.DataFrame()
     #st.write(len(symbols))
