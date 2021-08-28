@@ -165,6 +165,8 @@ def signal(x):
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def scan(symbols,tf,duration):
+    filename = 'finalized_model.sav'
+    model = joblib.load(filename)
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
@@ -188,7 +190,9 @@ def scan(symbols,tf,duration):
       
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
-
+    X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
+    df1['pred']= = model.predict(X_real)
+   
     return df1
       
 
@@ -282,7 +286,14 @@ if ss=='BTC':
     symbols=symbo
 df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
+AI=st.selectbox('Add AI in prediction',['yes','no'])
+if AI=='Yes':
+    AI=1
+else :
+    AI=0
+
 df=df1[df1.index>strt]
+df=df[df['pred']==AI]
 symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
