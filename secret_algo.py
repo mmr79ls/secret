@@ -191,6 +191,7 @@ def scan(symbols,tf,duration):
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
     X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
+    st.write(len(X_real)
     df1['pred']= model.predict(X_real)
    
     return df1
