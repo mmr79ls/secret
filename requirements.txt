@@ -8,3 +8,5 @@ requests==2.24.0
 seaborn==0.11.0
 matplotlib==3.2.2
 binance==0.3
+joblib==1.0.1
+xgboost==1.4.2
