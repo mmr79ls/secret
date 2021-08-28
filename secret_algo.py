@@ -168,8 +168,10 @@ def signal(x):
 def scan(symbols,tf,duration):
     #pickle_in = open('classifier.pkl', 'rb') 
     #model = pickle.load(pickle_in)
-    filename = 'secret_model.sav'
-    model = joblib.load(filename)
+    #filename = 'secret_model.sav'
+    #model = joblib.load(filename)
+    model = XGBClassifier()
+    model.load_model('model.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
