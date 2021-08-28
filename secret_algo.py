@@ -116,12 +116,12 @@ def pump(symbol,profit_flag=1,tf='15m',duration=6):
                     p=pd.DataFrame()
                     p=z[z.index>i]
                     z['profit'][i]=p.Close.max()*100/z[z.index==i].Close.max()
-                    st.write(t.Close.idxmax())
-                    st.write(i)
-                    st.write(t.Close.idxmax()-i)
-                    z['profit_duration'][i]=str(t.Close.idxmax()-i)
+                    #st.write(t.Close.idxmax())
+                    #st.write(i)
+                    #st.write(t.Close.idxmax()-i)
+                    z['profit_duration'][i]=str(p.Close.idxmax()-i)
                     z['loss']=p.Close.min()*100/z[z.index==i].Close.max()
-                    z['loss_duration'][i]=str(t.Close.idxmin()-i)
+                    z['loss_duration'][i]=str(p.Close.idxmin()-i)
                
             except:
                 continue
