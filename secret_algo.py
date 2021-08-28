@@ -4,6 +4,7 @@ Created on Thu Aug 26 14:43:07 2021
 
 @author: mraslan
 """
+from xgboost import XGBClassifier
 import joblib
 import pickle
 from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
