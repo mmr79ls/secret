@@ -184,6 +184,7 @@ def scan(symbols,tf,duration):
         model.load_model('model.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
+        st.write("BTC loaded")
         model.load_model('model_BTC_all.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
@@ -223,7 +224,7 @@ def scan(symbols,tf,duration):
 
 @st.cache(allow_output_mutation=True)
 def plot_symbol(symbol,profit=0):
-    st.write(symbol)
+    #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
     z=pump(symbol,profit)
