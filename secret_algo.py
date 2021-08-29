@@ -56,7 +56,7 @@ def get_orderbook(symbol):
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
-def pump(symbol,profit_flag=1,tf='15m',duration=6):
+def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     duration=str(duration) +"  ago UTC"
     df=pd.DataFrame(client.get_historical_klines(symbol.replace("/",""), tf, duration),columns=['Time','Open','High','Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','ignore'])
     df=df.astype( dtype={
@@ -223,11 +223,11 @@ def scan(symbols,tf,duration):
 #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
 @st.cache(allow_output_mutation=True)
-def plot_symbol(symbol,profit=0):
+def plot_symbol(symbol,profit=0,tf,duration):
     #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
-    z=pump(symbol,profit)
+    z=pump(symbol,profit,tf,duration)
     fig=go.Figure(data=[go.Candlestick(x=z.index,
                     open=z['Open'],
                     high=z['High'],
@@ -331,7 +331,7 @@ symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
           
-fig,z=plot_symbol(symbol,profit=0)
+fig,z=plot_symbol(symbol,profit=0,tf,duration)
 st.write(fig)
 st.dataframe(df)
 st.dataframe(df1)
