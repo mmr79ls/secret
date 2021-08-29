@@ -334,3 +334,5 @@ symbol=st.sidebar.radio('Symbol',symbols_f)
 fig,z=plot_symbol(symbol,profit=0)
 st.write(fig)
 st.dataframe(df)
+st.dataframe(df1)
+
