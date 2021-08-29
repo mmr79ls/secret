@@ -179,8 +179,12 @@ def scan(symbols,tf,duration):
     #model = pickle.load(pickle_in)
     #filename = 'secret_model.sav'
     #model = joblib.load(filename)
-    model = XGBClassifier()
-    model.load_model('model.sav')  # load data
+    if symbols[0].split("/")[1]=='USDT':
+        model = XGBClassifier()
+        model.load_model('model.sav')  # load data
+    elif symbols[0].split("/")[1]=='BTC':
+        model = XGBClassifier()
+        model.load_model('model_BTC_all.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
