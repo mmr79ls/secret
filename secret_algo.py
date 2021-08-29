@@ -331,7 +331,7 @@ symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
           
-fig,z=plot_symbol(symbol,profit=0,tf='15m',duration='2 day')
+fig,z=plot_symbol(symbol,0,tf=tf,duration=duration)
 st.write(fig)
 st.dataframe(df)
 
