@@ -223,6 +223,7 @@ def scan(symbols,tf,duration):
 
 @st.cache(allow_output_mutation=True)
 def plot_symbol(symbol,profit=0):
+    st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
     z=pump(symbol,profit)
