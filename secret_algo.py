@@ -223,7 +223,7 @@ def scan(symbols,tf,duration):
 #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
 @st.cache(allow_output_mutation=True)
-def plot_symbol(symbol,profit=0,tf,duration):
+def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
