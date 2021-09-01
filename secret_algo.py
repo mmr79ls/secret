@@ -308,10 +308,10 @@ ss=st.selectbox('USDT or BTC',['USDT','BTC'])
 if ss=='BTC':
     symbols=symbo
 df1=scan(symbols,tf,duration)
-flag=st.button('rescan again')
-    if flag==1:
-        caching.clear_cache()
-        df1=scan(symbols,tf,duration)
+flags=st.button('rescan again')
+if flags==1:
+    caching.clear_cache()
+    df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 df=df1[df1.index>strt]
 
