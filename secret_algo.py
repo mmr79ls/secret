@@ -59,8 +59,8 @@ def get_orderbook(symbol):
     f=pd.DataFrame([binEdges,counts]).T
     f.columns=columns=['Price','quantity']
     f['side']='bids'
-    bid=f.dropna().sort_values('quantity',ascending=False)[:3]
-    ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)[:3]
+    bid=f.dropna().sort_values('quantity',ascending=False)
+    ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)
     ask=ask.set_index('price')
     binwidth=price*0.02
     bins=np.arange(ask.index.min(), ask.index.max() + binwidth, binwidth)
