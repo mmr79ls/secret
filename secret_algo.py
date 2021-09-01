@@ -57,7 +57,7 @@ def get_orderbook(symbol):
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
     counts, binEdges=np.histogram(bid.quantity,bins=bins,density=True)
     f=pd.DataFrame([binEdges,counts]).T
-    f.columns=columns=['Price','quantity']
+    f.columns=columns=['price','quantity']
     f['side']='bids'
     bid=f.dropna().sort_values('quantity',ascending=False)
     ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)
