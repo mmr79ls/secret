@@ -65,10 +65,10 @@ def get_orderbook(symbol):
     bins=np.arange(ask.index.min(), ask.index.max() + binwidth, binwidth)
     counts, binEdges=np.histogram(ask.quantity,bins=bins,density=True)
     f=pd.DataFrame([binEdges,counts]).T
-    f.columns=columns=['Price','quantity']
+    f.columns=columns=['price','quantity']
     ask=f.sort_values('quantity',ascending=False)[:3]
     orderbook=pd.concat([bid,ask])
-    orderbook=orderbook.reset_index()
+    #orderbook=orderbook.reset_index()
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
@@ -255,7 +255,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     z['tmp']=z['tmp'].fillna(0)
 
     orderbook=get_orderbook(symbol.replace("/",""))
-    st.dataframe(orderbook)
+    #st.dataframe(orderbook)
     def color(asks):
         color=0
         if asks=='bids':
