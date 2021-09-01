@@ -68,6 +68,7 @@ def get_orderbook(symbol):
     f.columns=columns=['Price','quantity']
     ask=f.sort_values('quantity',ascending=False)[:3]
     orderbook=pd.concat([bid,ask])
+    orderbook=orderbook.reset_index()
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
