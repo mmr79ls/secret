@@ -50,8 +50,23 @@ def get_orderbook(symbol):
     price=float(prices[prices['symbol']==symbol].lastPrice.max())
     data['change']=data['price']/price
     data=data[(abs(data['change'])<1.3) &((abs(data['change'])>0.7)) ]
-    bid=data[data['side']=='bids'].sort_values('quantity',ascending=False)[:3]
+    bid=data[data['side']=='bids']
+   
+    bid=bid.set_index('price')
+    binwidth=price*0.02
+    bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
+    counts, binEdges=np.histogram(bid.quantity,bins=bins,density=True)
+    f=pd.DataFrame([binEdges,counts]).T
+    f.columns=columns=['Price','quantity']
+    bid=f.sort_values('quantity',ascending=False)[:3]
     ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)[:3]
+    ask=ask.set_index('price')
+    binwidth=price*0.02
+    bins=np.arange(ask.index.min(), ask.index.max() + binwidth, binwidth)
+    counts, binEdges=np.histogram(ask.quantity,bins=bins,density=True)
+    f=pd.DataFrame([binEdges,counts]).T
+    f.columns=columns=['Price','quantity']
+    ask=f.sort_values('quantity',ascending=False)[:3]
     orderbook=pd.concat([bid,ask])
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
