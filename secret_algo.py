@@ -258,7 +258,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     z['tmp']=z['tmp'].fillna(0)
 
     orderbook=get_orderbook(symbol.replace("/",""))
-    #st.dataframe(orderbook)
+    st.dataframe(orderbook)
     def color(asks):
         color=0
         if asks=='bids':
