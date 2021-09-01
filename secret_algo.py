@@ -255,6 +255,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     z['tmp']=z['tmp'].fillna(0)
 
     orderbook=get_orderbook(symbol.replace("/",""))
+    st.dataframe(orderbook)
     def color(asks):
         color=0
         if asks=='bids':
@@ -264,6 +265,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
         return color
 
     for i in range(len(orderbook)):
+        
         p=orderbook['price'].to_list()
         q=(2*orderbook['quantity']/orderbook['quantity'].mean()).to_list()
         asks=orderbook['side'].apply(lambda x: color(x)).to_list()
