@@ -58,6 +58,7 @@ def get_orderbook(symbol):
     counts, binEdges=np.histogram(bid.quantity,bins=bins,density=True)
     f=pd.DataFrame([binEdges,counts]).T
     f.columns=columns=['Price','quantity']
+    f['side']='bids'
     bid=f.sort_values('quantity',ascending=False)[:3]
     ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)[:3]
     ask=ask.set_index('price')
@@ -66,6 +67,7 @@ def get_orderbook(symbol):
     counts, binEdges=np.histogram(ask.quantity,bins=bins,density=True)
     f=pd.DataFrame([binEdges,counts]).T
     f.columns=columns=['price','quantity']
+    f['side']='asks'
     ask=f.sort_values('quantity',ascending=False)[:3]
     orderbook=pd.concat([bid,ask])
     #orderbook=orderbook.reset_index()
