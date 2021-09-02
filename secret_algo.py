@@ -59,10 +59,8 @@ def get_orderbook(symbol):
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
     f1=[]
     for i in range(1,len(bins)):
-        #f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
-        st.dataframe(data[(data.index<bins[i])])
-        st.write(bins[i-1])
-        st.write(bins[i])
+        f1.append(bid[(bid.index>bins[i-1]) & (bid.index<bins[i])].quantity.sum())
+        
                                                     
     f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
@@ -75,7 +73,7 @@ def get_orderbook(symbol):
     bins=np.arange(ask.index.min(), ask.index.max() + binwidth, binwidth)
     f1=[]
     for i in range(1,len(bins)):
-        f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+        f1.append(ask[(ask.index>bins[i-1]) & (ask.index<bins[i])].quantity.sum())
     f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
     f['side']='asks'
