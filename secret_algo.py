@@ -60,7 +60,7 @@ def get_orderbook(symbol):
     f1=[]
     for i in range(1,len(bins)):
         f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
-        st.dataframe(data[(data.index>bins[i-1]) & (data.index<bins[i]))
+        st.dataframe(data[(data.index>bins[i-1]) & (data.index<bins[i])))
     
     f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
