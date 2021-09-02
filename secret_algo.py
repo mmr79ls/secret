@@ -36,7 +36,7 @@ client = Client(api_key, api_secret)
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
 def get_orderbook(symbol):
     r = requests.get("https://api.binance.com/api/v3/depth",
-                     params=dict(symbol=symbol,limit=1000))
+                     params=dict(symbol=symbol,limit=5000))
     results = r.json()
 
     frames = {side: pd.DataFrame(data=results[side], columns=["price", "quantity"],
@@ -55,8 +55,10 @@ def get_orderbook(symbol):
     bid=bid.set_index('price')
     binwidth=price*0.02
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
-    counts, binEdges=np.histogram(bid.quantity,bins=bins,density=True)
-    f=pd.DataFrame([binEdges,counts]).T
+    f1=[]
+    for i in range(1,len(bins)):
+        f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+    f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
     f['side']='bids'
     bid=f.dropna().sort_values('quantity',ascending=False)[:4]
@@ -64,8 +66,10 @@ def get_orderbook(symbol):
     ask=ask.set_index('price')
     binwidth=price*0.02
     bins=np.arange(ask.index.min(), ask.index.max() + binwidth, binwidth)
-    counts, binEdges=np.histogram(ask.quantity,bins=bins,density=True)
-    f=pd.DataFrame([binEdges,counts]).T
+    f1=[]
+    for i in range(1,len(bins)):
+        f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+    f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
     f['side']='asks'
     
