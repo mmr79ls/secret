@@ -59,7 +59,8 @@ def get_orderbook(symbol):
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
     f1=[]
     for i in range(1,len(bins)):
-        f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+        #f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+        st.dataframe(data[(data.index>bins[i-1])]
         st.write(bins[i-1])
         st.write(bins[i])
                                                     
