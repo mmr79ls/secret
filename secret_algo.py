@@ -50,12 +50,14 @@ def get_orderbook(symbol):
     price=float(prices[prices['symbol']==symbol].lastPrice.max())
     data['change']=data['price']/price
     data=data[(abs(data['change'])<1.8) &((abs(data['change'])>0.4)) ]
-    st.write(len(data))
+    
     bid=data[data['side']=='bids']
     
    
     bid=bid.set_index('price')
     binwidth=price*0.02
+    st.write(len(bid))
+    st.write(binwidth)
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
     f1=[]
     for i in range(1,len(bins)):
