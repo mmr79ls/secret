@@ -60,10 +60,11 @@ def get_orderbook(symbol):
     f1=[]
     for i in range(1,len(bins)):
         f1.append(data[(data.index>bins[i-1]) & (data.index<bins[i])].quantity.sum())
+    st.write(f1)
     f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
     f['side']='bids'
-    st.dataframe(f)
+    
     bid=f.dropna().sort_values('quantity',ascending=False)[:4]
     ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)
     ask=ask.set_index('price')
