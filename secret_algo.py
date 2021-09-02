@@ -56,8 +56,6 @@ def get_orderbook(symbol):
    
     bid=bid.set_index('price')
     binwidth=price*0.02
-    st.write(len(bid))
-    st.write(binwidth)
     bins=np.arange(bid.index.min(), bid.index.max() + binwidth, binwidth)
     f1=[]
     for i in range(1,len(bins)):
@@ -65,6 +63,7 @@ def get_orderbook(symbol):
     f=pd.DataFrame([bins,f1]).T
     f.columns=columns=['price','quantity']
     f['side']='bids'
+    st.dataframe(f)
     bid=f.dropna().sort_values('quantity',ascending=False)[:4]
     ask=data[data['side']=='asks'].sort_values('quantity',ascending=False)
     ask=ask.set_index('price')
