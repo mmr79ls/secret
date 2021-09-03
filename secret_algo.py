@@ -313,12 +313,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
 
     #fig.add_vline(x=z['tmp'].max(), line_width=3, line_dash="dash", line_color="green")
     fig.update_layout(showlegend=False)
-    fig.update_layout(
-        autosize=False,
-        width=1000,
-        height=800,
-
-    )
+   fig.update_layout(height=400,width=800, margin=dict(r=5, l=5, t=5, b=5))
     fig.update_yaxes(automargin=True)
     #fig.show()
     #z['Close'].plot(figsize=(20,10))
