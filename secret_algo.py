@@ -115,7 +115,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['Quote asset volume']=df['Quote asset volume']
     z['trades_maker_volume']=df['Quote asset volume']-df['Taker buy quote asset volume']
     #z['trades_maker']=z['trades_maker_volume']/df['Number of trades']
-    z['Delta']=df['Taker buy quote asset volume']-z['trades_maker_volume']
+    z['Delta']=z['trades_maker_volume']-df['Taker buy quote asset volume']
     z['percent_buy']=df['Taker buy quote asset volume']*100/df['Quote asset volume']
     z['Close']=df['Close']
     z['Delta/Total']=z['Delta']*100/z['Quote asset volume']
@@ -131,7 +131,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
      
     z=z[(abs(z['Delta_change'])<np.inf)]
     z['KPI']=z['Delta_change']*z['percent_buy']
-    #z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
+    z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
     z['signal']=z['Delta_change'].apply(lambda x: signal(x))
     z['profit']=0
     z['profit_duration']=0
@@ -197,9 +197,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>1000:
+    if x>95:
         sig=1
-    elif x<-1000:
+    elif x<-95:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
