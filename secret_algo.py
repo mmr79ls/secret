@@ -197,9 +197,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>5:
+    if x>20:
         sig=1
-    elif x<-5:
+    elif x<-20:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
