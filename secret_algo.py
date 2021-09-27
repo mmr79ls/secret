@@ -264,7 +264,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
                     close=z['Close'])])
 
 
-    z['tmp']=z['signal']*abs(z['Delta_change'])
+    z['tmp']=z['signal']*abs(z['Delta/Total'])
     z['tmp']=z['tmp'].fillna(0)
 
     orderbook=get_orderbook(symbol.replace("/",""))
