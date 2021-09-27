@@ -118,6 +118,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['Delta']=df['Taker buy quote asset volume']-z['trades_maker_volume']
     z['percent_buy']=df['Taker buy quote asset volume']*100/df['Quote asset volume']
     z['Close']=df['Close']
+    z['Delta/Total']=z['Delta']*100/z['Quote asset volume']
     z['price_change']=(df['Close']-df['Open'])*100/df['Open']
     #z['Volume']=df['Volume']
   
