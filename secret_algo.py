@@ -152,7 +152,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
                     z['profit_duration'][i]=str(p.Close.idxmax()-i)
                     z['loss']=p.Close.min()*100/z[z.index==i].Close.max()
                     z['loss_duration'][i]=str(p.Close.idxmin()-i)
-               
+    z=z[z['Delta/Total']>70]
             except:
                 continue
             
