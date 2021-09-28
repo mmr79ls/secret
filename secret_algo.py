@@ -366,6 +366,7 @@ symbol=st.sidebar.radio('Symbol',symbols_f)
           
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
 st.write(fig)
+df=df.drop(columns=['Open','High','Low'],axis=1)
 st.dataframe(df)
 
 
