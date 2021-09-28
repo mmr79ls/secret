@@ -134,7 +134,8 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     #z['signal']= z[abs(z['Delta/Total'])>90]['KPI'].apply(lambda x: signal(x))
     #z['signal']=z['signal'].fillna(0)
     #z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
-    z['signal']=z['Delta_change'].apply(lambda x: signal(x))
+    z['signal']=z[abs(z['Delta/Total'])>70]['Delta_change'].apply(lambda x: signal(x))
+    z['signal']=z['signal'].fillna(0)
     z['profit']=0
     z['profit_duration']=0
     z['loss_duration']=0
