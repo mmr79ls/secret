@@ -198,9 +198,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>100000:
+    if x>1000000:
         sig=1
-    elif x<-100000:
+    elif x<-1000000:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
@@ -265,7 +265,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
                     close=z['Close'])])
 
 
-    z['tmp']=z['signal']*abs(z['Delta/Total'])
+    z['tmp']=z['signal']*abs(z['KPI'])
     z['tmp']=z['tmp'].fillna(0)
 
     orderbook=get_orderbook(symbol.replace("/",""))
