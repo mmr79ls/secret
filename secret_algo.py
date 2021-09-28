@@ -156,7 +156,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
                 continue
             
     #z['Delta_change'].plot(secondary_y=True)
-    z=z[z['Delta/Total']>=50]
+    z=z[abs(z['Delta/Total'])>=50]
     
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
