@@ -183,9 +183,9 @@ for i in s:
                     symbo.append(i)
 symbols=[]        
 for i in z:
-    t=(i.find('UP/') + i.find('DOWN/') + i.find('BULL/') + i.find('BEAR/')+i.find('USDC/')+i.find('PAX/')+i.find('PAXG/')+i.find('TUSD/')+i.find('USDP/')+i.find('EUR/')+i.find('SUSD/'))
+    t=(i.find('UP/') + i.find('DOWN/') + i.find('BULL/') + i.find('BEAR/')+i.find('USDC/')+i.find('PAX/')+i.find('PAXG/')+i.find('TUSD/')+i.find('USDP/')+i.find('EUR/')+i.find('SUSD/')+i.find('BUSD/'))
     #print(i,'  ',t)
-    if(t==-11):
+    if(t==-12):
         symbols.append(i)  
 
 
