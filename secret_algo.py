@@ -156,7 +156,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
                 continue
             
     #z['Delta_change'].plot(secondary_y=True)
-    z=z[z['Delta/Total']>70]
+    z=z[z['Delta/Total']>=50]
     
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
@@ -199,9 +199,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>1000000:
+    if x>100000:
         sig=1
-    elif x<-1000000:
+    elif x<-100000:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
