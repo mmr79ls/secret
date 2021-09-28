@@ -130,8 +130,9 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['Delta_change']=(z['Delta']-z['Delta'].shift(1))/z['Delta']
      
     z=z[(abs(z['Delta_change'])<np.inf)]
-    z['KPI']=z['Delta']*z['Delta/Total']
-    z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
+    z['KPI']=z['Delta']*abs(z['Delta/Total'])
+    z['signal']= z['KPI'].apply(lambda x: signal(x))
+    #z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
     #z['signal']=z['Delta_change'].apply(lambda x: signal(x))
     z['profit']=0
     z['profit_duration']=0
@@ -182,9 +183,9 @@ for i in s:
                     symbo.append(i)
 symbols=[]        
 for i in z:
-    t=(i.find('UP/') + i.find('DOWN/') + i.find('BULL/') + i.find('BEAR/')+i.find('USDC/')+i.find('PAX/')+i.find('PAXG/'))
+    t=(i.find('UP/') + i.find('DOWN/') + i.find('BULL/') + i.find('BEAR/')+i.find('USDC/')+i.find('PAX/')+i.find('PAXG/')+i.find('TUSD/')+i.find('USDP/')+i.find('EUR/')+i.find('SUSD/'))
     #print(i,'  ',t)
-    if(t==-7):
+    if(t==-11):
         symbols.append(i)  
 
 
@@ -197,9 +198,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>95:
+    if x>100000:
         sig=1
-    elif x<-95:
+    elif x<-100000:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
