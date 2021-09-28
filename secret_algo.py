@@ -131,10 +131,10 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
      
     z=z[(abs(z['Delta_change'])<np.inf)]
     z['KPI']=z['Delta']*abs(z['Delta/Total'])/100
-    z['signal']= z[abs(z['Delta/Total'])>90]['KPI'].apply(lambda x: signal(x))
-    z['signal']=z['signal'].fillna(0)
+    #z['signal']= z[abs(z['Delta/Total'])>90]['KPI'].apply(lambda x: signal(x))
+    #z['signal']=z['signal'].fillna(0)
     #z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
-    #z['signal']=z['Delta_change'].apply(lambda x: signal(x))
+    z['signal']=z['Delta_change'].apply(lambda x: signal(x))
     z['profit']=0
     z['profit_duration']=0
     z['loss_duration']=0
@@ -200,9 +200,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>100000:
+    if x>500:
         sig=1
-    elif x<-100000:
+    elif x<-500:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
