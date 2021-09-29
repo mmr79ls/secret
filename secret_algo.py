@@ -128,7 +128,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     #z['trades_maker_volume'].plot(secondary_y=True)
     #z.sort_values('KPI',ascending=False)
     z['Delta_change']=(z['Delta']-z['Delta'].shift(1))/z['Delta']
-     
+    z['Delta_shifted']=z['Delta'].shift(-1)
     z=z[(abs(z['Delta_change'])<np.inf)]
     z['KPI']=z['Delta']*abs(z['Delta/Total'])/100
     #z['signal']= z[abs(z['Delta/Total'])>90]['KPI'].apply(lambda x: signal(x))
