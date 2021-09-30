@@ -128,7 +128,8 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     #z['trades_maker_volume'].plot(secondary_y=True)
     #z.sort_values('KPI',ascending=False)
     z['Delta_change']=(z['Delta']-z['Delta'].shift(1))/z['Delta']
-    z['Delta_shifted']=z['Delta'].shift(-1)
+    z['Delta_shifted_old']=z['Delta'].shift(-1)
+    z['Delta/Total_shifted']=z['Delta'].shift(-1)*100/z['Quote asset volume'].shift(-1)
     z=z[(abs(z['Delta_change'])<np.inf)]
     z['KPI']=z['Delta']*abs(z['Delta/Total'])/100
     #z['signal']= z[abs(z['Delta/Total'])>90]['KPI'].apply(lambda x: signal(x))
@@ -335,8 +336,10 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
 tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
 duration=st.text_input('Number of hours/days before','1 day') 
 ss=st.selectbox('USDT or BTC',['USDT','BTC'])
+sig=st.selectbox('positive delta or negative delta ',['P','N'])
 if ss=='BTC':
     symbols=symbo
+
 df1=scan(symbols,tf,duration)
 flags=st.button('rescan again')
 if flags==1:
@@ -344,7 +347,10 @@ if flags==1:
     df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 df=df1[df1.index>strt]
-
+if sig=='P':
+    df=df[df['signal']==1]
+elif sig=='N':
+    df=df[df['signal']==-1]
 total=len(df[df['signal']!=0].symbol.unique())
 st.write('All signals detected are for symbols '+str(total))
 AI=st.selectbox('Add AI in prediction',['yes','no'])
@@ -364,7 +370,7 @@ else :
 symbols_f=df[df['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
-          
+
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
 st.write(fig)
 df=df.drop(columns=['Open','High','Low'],axis=1)
