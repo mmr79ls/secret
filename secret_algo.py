@@ -121,7 +121,10 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['Delta/Total']=z['Delta']*100/z['Quote asset volume']
     z['price_change']=(df['Close']-df['Open'])*100/df['Open']
     #z['Volume']=df['Volume']
-  
+    z['Delta_shifted_old']=z['Delta'].shift(-1)
+    z['Delta/Total_shifted']=z['Delta'].shift(-1)*100/z['Quote asset volume'].shift(-1)
+    z['Delta_shifted_old_2']=z['Delta'].shift(-2)
+    z['Delta/Total_shifted_2']=z['Delta'].shift(-2)*100/z['Quote asset volume'].shift(-2)
     z=z.set_index('Date')
     #z['Close'].plot()
     #z['Delta'][:-1].plot(secondary_y=True)
