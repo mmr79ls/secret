@@ -205,9 +205,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>500:
+    if x>200:
         sig=1
-    elif x<-500:
+    elif x<-200:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
@@ -340,7 +340,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
 tf=st.selectbox('Time Frame',['1m','5m','15m','1h','4h','1d','1w','1M'])
 duration=st.text_input('Number of hours/days before','1 day') 
 ss=st.selectbox('USDT or BTC',['USDT','BTC'])
-sig=st.selectbox('positive delta or negative delta ',['P','N'])
+
 if ss=='BTC':
     symbols=symbo
 
@@ -351,11 +351,12 @@ if flags==1:
     df1=scan(symbols,tf,duration)
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 df=df1[df1.index>strt]
+sig=st.selectbox('positive delta or negative delta ',['P','N'])
 if sig=='P':
-    df=df[df['signal']==1]
+    df1=df[df['signal']==1]
 elif sig=='N':
-    df=df[df['signal']==-1]
-total=len(df[df['signal']!=0].symbol.unique())
+    df1=df[df['signal']==-1]
+total=len(df1[df1['signal']!=0].symbol.unique())
 st.write('All signals detected are for symbols '+str(total))
 AI=st.selectbox('Add AI in prediction',['yes','no'])
 if AI=='yes':
@@ -366,18 +367,18 @@ if AI=='yes':
     st.write('AI signals detected from all '+str(round(detected_AI/total,2)))
 else :
     AI=0
-    df=df
+    df=df1
 
 
 
 
-symbols_f=df[df['signal']!=0].symbol.unique()
+symbols_f=df1[df1['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 symbol=st.sidebar.radio('Symbol',symbols_f)
 
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
 st.write(fig)
 df=df.drop(columns=['Open','High','Low'],axis=1)
-st.dataframe(df)
+st.dataframe(df1)
 
 
