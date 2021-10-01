@@ -215,7 +215,7 @@ def scan(symbols,tf,duration):
     #model = joblib.load(filename)
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model.sav')  # load data
+        model.load_model('model_USDT_5m.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
@@ -243,8 +243,9 @@ def scan(symbols,tf,duration):
       
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
-    X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
-    
+    #X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
+    X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+
     yy= model.predict(X_real)
    # yy=0
     df1['pred']=yy
