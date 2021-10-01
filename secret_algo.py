@@ -139,7 +139,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     #z['signal']=z['signal'].fillna(0)
     #z['signal']= z['Delta/Total'].apply(lambda x: signal(x))
     z['signal']=z['Delta_change'].apply(lambda x: signal(x))
-    z['signal']=z['signal'].fillna(0)
+    #z['signal']=z['signal'].fillna(0)
     z['profit']=0
     z['profit_duration']=0
     z['loss_duration']=0
@@ -352,10 +352,11 @@ if flags==1:
 strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
 df=df1[df1.index>strt]
 sig=st.selectbox('positive delta or negative delta ',['P','N'])
-if sig=='P':
-    df1=df[df['signal']==1]
-elif sig=='N':
-    df1=df[df['signal']==-1]
+df1=df
+#if sig=='P':
+ #   df1=df[df['signal']==1]
+#elif sig=='N':
+ #   df1=df[df['signal']==-1]
 total=len(df1[df1['signal']!=0].symbol.unique())
 st.write('All signals detected are for symbols '+str(total))
 AI=st.selectbox('Add AI in prediction',['yes','no'])
