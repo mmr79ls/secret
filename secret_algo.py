@@ -377,7 +377,7 @@ symbols_f=df1[df1['signal']!=0].symbol.unique()
 st.write(len(symbols_f))
 pf=st.number_input('filter for profit %',100.0)
 profit=len(df1[df1['profit']>=pf])
-st.write('wint rate ',str(round(profit*100/total,2)
+st.write('wint rate ',str(round(profit*100/total,2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
 
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
