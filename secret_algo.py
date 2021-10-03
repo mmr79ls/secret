@@ -222,7 +222,7 @@ def scan(symbols,tf,duration):
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
-        model.load_model('model_USDT_5m.sav')  # load data
+        model.load_model('model_BTC_5m.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
