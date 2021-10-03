@@ -218,11 +218,11 @@ def scan(symbols,tf,duration):
     #model = joblib.load(filename)
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model_USDT_5m.sav')  # load data
+        model.load_model('model_USDT_15m.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
-        model.load_model('model_BTC_5m.sav')  # load data
+        model.load_model('model_BTC_15m.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
