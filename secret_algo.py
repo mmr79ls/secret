@@ -186,7 +186,7 @@ for symbol in symbols:
 symbo=[]
 for i in s:
         if i.split('/')[0] not in u:
-            if i!='YOYOW/BTC':
+            if (i!='YOYOW/BTC') and (i!='WBTC/BTC'):
                     symbo.append(i)
 symbols=[]        
 for i in z:
