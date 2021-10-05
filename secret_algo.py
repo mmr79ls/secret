@@ -400,7 +400,7 @@ st.write('wint rate ',str(round(profit*100/len(df1),2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
 
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
-config={'modeBarButtonsToAdd':['drawline',
+config={'scrollZoom': True,'modeBarButtonsToAdd':['drawline',
                                         'drawopenpath',
                                         'drawclosedpath',
                                         'drawcircle',
