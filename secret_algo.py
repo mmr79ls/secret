@@ -302,9 +302,9 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
        #         orientation='h'))
 
     def add_signal(z):
-        x=z[(z['signal']!=0) &(z['pred]==1)].index.to_list()
-        y=z[(z['signal']!=0)&(z['pred]==1)].Close.to_list()
-        m=z[(z['signal']!=0)&(z['pred]==1)].tmp.to_list()
+        x=z[(z['signal']!=0) &  (z['pred']==1)].index.to_list()
+        y=z[(z['signal']!=0) &  (z['pred']==1)].Close.to_list()
+        m=z[(z['signal']!=0) &  (z['pred']==1)].tmp.to_list()
         for i in range(len(x)):
             a=x[i]
             b=y[i]
