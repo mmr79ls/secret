@@ -408,7 +408,7 @@ config={'modeBarButtonsToAdd':['drawline',
                                         'eraseshape'
                                        ]}
 #st.write(fig,config=config)
-st.plotly_chart(fig, use_container_width=False, **{‘config’: config})
+st.plotly_chart(fig, use_container_width=False, **{'config': config})
 df=df.drop(columns=['Open','High','Low'],axis=1)
 
 st.dataframe(df1)
