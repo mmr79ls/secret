@@ -329,7 +329,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     add_signal(z)
     fig.update_layout(
     dragmode='drawopenpath',
-    newshape_line_color='cyan',
+    newshape_line_color='black',
     title_text='Draw a path to separate versicolor and virginica'
     )
 
