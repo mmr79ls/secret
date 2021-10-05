@@ -275,6 +275,11 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
 
     z['tmp']=z['signal']*abs(z['KPI'])
     z['tmp']=z['tmp'].fillna(0)
+    X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+
+    yy= model.predict(X_real)
+   # yy=0
+    z['pred']=yy
 
     orderbook=get_orderbook(symbol.replace("/",""))
     #st.dataframe(orderbook)
@@ -297,9 +302,9 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
        #         orientation='h'))
 
     def add_signal(z):
-        x=z[z['signal']!=0].index.to_list()
-        y=z[z['signal']!=0].Close.to_list()
-        m=z[z['signal']!=0].tmp.to_list()
+        x=z[(z['signal']!=0) &(z['pred]==1)].index.to_list()
+        y=z[(z['signal']!=0)&(z['pred]==1)].Close.to_list()
+        m=z[(z['signal']!=0)&(z['pred]==1)].tmp.to_list()
         for i in range(len(x)):
             a=x[i]
             b=y[i]
