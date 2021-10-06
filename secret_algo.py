@@ -344,6 +344,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
         'yanchor': 'top'})
     
     fig.update_yaxes(automargin=True)
+    fig.update_xaxes(automargin=True)
     #fig.show()
     #z['Close'].plot(figsize=(20,10))
 
