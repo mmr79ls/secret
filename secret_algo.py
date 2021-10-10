@@ -222,7 +222,7 @@ def scan(symbols,tf,duration):
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
-        model.load_model('model_BTC_15m.sav')  # load data
+        model.load_model('model_BTC_15m_40.sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
@@ -276,7 +276,13 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     z['tmp']=z['signal']*abs(z['KPI'])
     z['tmp']=z['tmp'].fillna(0)
     model = XGBClassifier()
-    model.load_model('model_USDT_15m.sav') 
+    if symbols[0].split("/")[1]=='USDT':
+        model = XGBClassifier()
+        model.load_model('model_USDT_15m.sav')  # load data
+    elif symbols[0].split("/")[1]=='BTC':
+        model = XGBClassifier()
+        st.write("BTC loaded")
+        model.load_model('model_BTC_15m_40.sav') 
     X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
 
     yy= model.predict(X_real)
