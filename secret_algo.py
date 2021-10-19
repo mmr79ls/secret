@@ -225,7 +225,7 @@ def scan(symbols,tf,duration):
     #model = joblib.load(filename)
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model_USDT_1h.sav')  # load data
+        model.load_model('model_USDT_1h_40.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
@@ -287,7 +287,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     model = XGBClassifier()
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model_USDT_1h.sav')  # load data
+        model.load_model('model_USDT_1h_40.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
