@@ -253,6 +253,7 @@ def scan(symbols,tf,duration):
       
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
+    df1=df1.dropna()
     #X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
     #X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
     X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','RSI',	'RSI_shifted','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
@@ -291,6 +292,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
         model = XGBClassifier()
         st.write("BTC loaded")
         model.load_model('model_BTC_15m_40.sav') 
+    z=z.dropna()
    # X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
     X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','RSI',	'RSI_shifted','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
 
