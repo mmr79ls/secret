@@ -13,6 +13,7 @@ import matplotlib.pyplot as plt
 from datetime import datetime
 import ccxt
 import numpy as np
+from finta import TA
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import requests
@@ -107,6 +108,12 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['Open']=df['Open']
     z['High']=df['High']
     z['Low']=df['Low']
+    z['open']=df['Open']
+    z['high']=df['High']
+    z['low']=df['Low']
+    z['close']=df['Close']
+    z['RSI']=TA.RSI(z)
+    z['RSI_shifted']=z['RSI'].shift(1)
     z['trades_taker']=df['Taker buy quote asset volume']/df['Quote asset volume']
     #z['trades_Vol_taker']=df['Taker buy quote asset volume']/df['Number of trades']
     z['trades_vol_trade']=df['Quote asset volume']/df['Number of trades']
@@ -205,9 +212,9 @@ warnings.filterwarnings('ignore')
 
 def signal(x):
     sig=0
-    if x>500:
+    if x>100:
         sig=1
-    elif x<-500:
+    elif x<-100:
         sig=-1
     return sig
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
@@ -218,7 +225,7 @@ def scan(symbols,tf,duration):
     #model = joblib.load(filename)
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model_USDT_15m.sav')  # load data
+        model.load_model('model_USDT_1h.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
@@ -247,7 +254,8 @@ def scan(symbols,tf,duration):
         #a=z.plot(subplots=True,layout=(6,3),figsize=(20,10))
         df1=pd.concat([z,df1])
     #X_real=df1[['signal','Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume']]
-    X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+    #X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+    X_real=df1[['Delta_change','percent_buy','Quote asset volume','Number of trades','RSI',	'RSI_shifted','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
 
     yy= model.predict(X_real)
    # yy=0
@@ -278,12 +286,13 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     model = XGBClassifier()
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
-        model.load_model('model_USDT_15m.sav')  # load data
+        model.load_model('model_USDT_1h.sav')  # load data
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
         model.load_model('model_BTC_15m_40.sav') 
-    X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+   # X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
+    X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','RSI',	'RSI_shifted','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
 
     yy= model.predict(X_real)
    # yy=0
