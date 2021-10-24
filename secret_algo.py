@@ -229,7 +229,7 @@ def scan(symbols,tf,duration):
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
-        model.load_model('model_BTC_15m_40.sav')  # load data
+        model.load_model('model_BTC_15m_40 (1).sav')  # load data
     df1=pd.DataFrame()
     #st.write(len(symbols))
     for symbol in symbols:
@@ -291,7 +291,7 @@ def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
     elif symbols[0].split("/")[1]=='BTC':
         model = XGBClassifier()
         st.write("BTC loaded")
-        model.load_model('model_BTC_15m_40.sav') 
+        model.load_model('model_BTC_15m_40 (1).sav') 
     z=z.dropna()
    # X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
     X_real=z[['Delta_change','percent_buy','Quote asset volume','Number of trades','RSI',	'RSI_shifted','price_change','Close','Delta','Taker buy quote asset volume','Delta_shifted_old','Delta/Total_shifted','Delta_shifted_old_2','Delta/Total_shifted_2']]
