@@ -50,7 +50,7 @@ def get_orderbook(symbol):
     prices=pd.DataFrame(client.get_ticker())
     price=float(prices[prices['symbol']==symbol].lastPrice.max())
     data['change']=data['price']/price
-    data=data[(abs(data['change'])<1.5) &((abs(data['change'])>0.5)) ]
+    data=data[(abs(data['change'])<3.5) &((abs(data['change'])>0.1)) ]
     
     bid=data[data['side']=='bids']
     
