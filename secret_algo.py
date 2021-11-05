@@ -152,19 +152,23 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     z['loss_duration']=0
     z['loss']=0
     if profit_flag==1:
+        
         for i in z.index:
-            t=z[z.index==i][:(4*24*7)]
+           
+            t= z.loc[i+timedelta(hours=1):i+timedelta(2)]
+            f= z.loc[i-timedelta(hours=1):i-timedelta(2)]
+            #t=z[(z.index>=i) & (z.index<i+timedelta(days=2))]
+           # f=z[(z.index<=i) & (z.index>(i-timedelta(days=2)))]
             try:
                 if (t['signal']!=0)[0]:
-                    p=pd.DataFrame()
-                    p=z[z.index>i]
-                    z['profit'][i]=p.Close.max()*100/z[z.index==i].Close.max()
-                    #st.write(t.Close.idxmax())
-                    #st.write(i)
-                    #st.write(t.Close.idxmax()-i)
-                    z['profit_duration'][i]=str(p.Close.idxmax()-i)
-                    z['loss']=p.Close.min()*100/z[z.index==i].Close.max()
-                    z['loss_duration'][i]=str(p.Close.idxmin()-i)
+                   
+                    z['profit'][i]=t.High.max()*100/z[z.index==i].Close.max()
+                    z['Loss'][i]=t.Close.min()*100/z[z.index==i].Close.max()
+                    z['profit_duration'][i]=t.High.idxmax()-i
+                    z['Loss_duration'][i]=t.Close.idxmin()-i
+                if (f['signal']!=0)[0]:
+                    z['signal_count'][i]=f.signal.count()
+                    
             except:
                 continue
             
