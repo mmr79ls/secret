@@ -156,7 +156,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
         for i in z.index:
            
             t= z.loc[i+timedelta(hours=1):i+timedelta(2)]
-            st.dataframe(t)
+            
             f= z.loc[i-timedelta(hours=1):i-timedelta(2)]
             #t=z[(z.index>=i) & (z.index<i+timedelta(days=2))]
            # f=z[(z.index<=i) & (z.index>(i-timedelta(days=2)))]
@@ -164,6 +164,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
                 if (t['signal']!=0)[0]:
                    
                     z['profit'][i]=t.High.max()*100/z[z.index==i].Close.max()
+                    
                     z['Loss'][i]=t.Close.min()*100/z[z.index==i].Close.max()
                     z['profit_duration'][i]=t.High.idxmax()-i
                     z['Loss_duration'][i]=t.Close.idxmin()-i
@@ -175,7 +176,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
             
     #z['Delta_change'].plot(secondary_y=True)
     
-    
+    print(z['profit'])
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
 
