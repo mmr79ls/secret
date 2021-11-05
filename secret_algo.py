@@ -10,7 +10,7 @@ import pickle
 from binance import Client, ThreadedWebsocketManager, ThreadedDepthCacheManager
 import pandas as pd
 import matplotlib.pyplot as plt
-from datetime import datetime
+from datetime import datetime ,timedelta
 import ccxt
 import numpy as np
 from finta import TA
