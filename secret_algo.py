@@ -155,9 +155,9 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
         
         for i in z.index:
            
-            t= z.loc[i+timedelta(hours=1):i+timedelta(2)]
+            t= z.loc[i:i+timedelta(2)]
             
-            f= z.loc[i-timedelta(hours=1):i-timedelta(2)]
+            f= z.loc[i:i-timedelta(2)]
             #t=z[(z.index>=i) & (z.index<i+timedelta(days=2))]
            # f=z[(z.index<=i) & (z.index>(i-timedelta(days=2)))]
             try:
