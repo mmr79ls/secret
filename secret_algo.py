@@ -137,7 +137,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
     #z['Delta'][:-1].plot(secondary_y=True)
     #z['trades_maker_volume'].plot(secondary_y=True)
     #z.sort_values('KPI',ascending=False)
-    z['Delta_change']=(z['Delta']-z['Delta'].shift(1))/z['Delta']
+    z['Delta_change']=(z['Delta']-z['Delta'].shift(1))/z['Delta'].shift(1)
     z['Delta_shifted_old']=z['Delta'].shift(-1)
     z['Delta/Total_shifted']=z['Delta'].shift(-1)*100/z['Quote asset volume'].shift(-1)
     z=z[(abs(z['Delta_change'])<np.inf)]
