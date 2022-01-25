@@ -392,7 +392,7 @@ flags=st.button('rescan again')
 if flags==1:
     caching.clear_cache()
     df1=scan(symbols,tf,duration)
-strt=st.text_input('Date to filter with ','2021-08-26 00:00:00')
+strt=st.text_input('Date to filter with ','2022-01-01 00:00:00')
 df=df1[df1.index>strt]
 sig=st.selectbox('positive delta or negative delta ',['P','N'])
 df1=df
