@@ -281,8 +281,9 @@ def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
     #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
+    profit=0
     z=pump(symbol,profit,tf,duration)
-    
+    st.dataframe(z)
     fig=go.Figure(data=[go.Candlestick(x=z.index,
                     open=z['Open'],
                     high=z['High'],
