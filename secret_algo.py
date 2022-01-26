@@ -425,7 +425,7 @@ st.write('win rate ',str(round(profit*100/len(df1),2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
 
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
-print(fig)
+
 config={'scrollZoom': True,'modeBarButtonsToAdd':['drawline',
                                         'drawopenpath',
                                         'drawclosedpath',
@@ -438,5 +438,5 @@ st.plotly_chart(fig, use_container_width=False, **{'config': config})
 df=df.drop(columns=['Open','High','Low'],axis=1)
 
 st.dataframe(df1)
-
+st.dataframe(z)
 
