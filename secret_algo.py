@@ -151,7 +151,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 days'):
     z['profit_duration']=0
     z['loss_duration']=0
     z['loss']=0
-    st.dataframe(z)
+    
     if profit_flag==1:
         
         for i in z.index:
@@ -282,6 +282,7 @@ def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
     symbol=symbol.replace("/","")
     #st.write(symbol)
     z=pump(symbol,profit,tf,duration)
+    
     fig=go.Figure(data=[go.Candlestick(x=z.index,
                     open=z['Open'],
                     high=z['High'],
@@ -291,6 +292,7 @@ def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
 
     z['tmp']=z['signal']*abs(z['KPI'])
     z['tmp']=z['tmp'].fillna(0)
+    st.dataframe(z)
     model = XGBClassifier()
     if symbols[0].split("/")[1]=='USDT':
         model = XGBClassifier()
@@ -369,7 +371,7 @@ def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
     
     fig.update_yaxes(automargin=True,autorange=True,fixedrange=False)
     #fig.update_xaxes(automargin=True)
-    #fig.show()
+    fig.show()
     #z['Close'].plot(figsize=(20,10))
 
     #z['tmp'].plot(secondary_y=True)
