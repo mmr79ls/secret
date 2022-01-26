@@ -177,7 +177,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 days'):
             
     #z['Delta_change'].plot(secondary_y=True)
     
-    print(len(z))
+    st.write(len(z))
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
 
