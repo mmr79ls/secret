@@ -151,6 +151,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 days'):
     z['profit_duration']=0
     z['loss_duration']=0
     z['loss']=0
+    st.dataframe(z)
     if profit_flag==1:
         
         for i in z.index:
@@ -438,5 +439,5 @@ st.plotly_chart(fig, use_container_width=False, **{'config': config})
 df=df.drop(columns=['Open','High','Low'],axis=1)
 
 st.dataframe(df1)
-st.dataframe(z)
+
 
