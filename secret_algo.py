@@ -423,8 +423,9 @@ pf=st.number_input('filter for profit %',100.0)
 profit=len(df1[df1['profit']>=pf])
 st.write('win rate ',str(round(profit*100/len(df1),2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
-print(fig)
+
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
+print(fig)
 config={'scrollZoom': True,'modeBarButtonsToAdd':['drawline',
                                         'drawopenpath',
                                         'drawclosedpath',
