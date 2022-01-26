@@ -85,7 +85,7 @@ def get_orderbook(symbol):
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
-def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
+def pump(symbol,profit_flag=1,tf='15m',duration='2 days'):
     duration=str(duration) +"  ago UTC"
     df=pd.DataFrame(client.get_historical_klines(symbol.replace("/",""), tf, duration),columns=['Time','Open','High','Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','ignore'])
     df=df.astype( dtype={
@@ -176,7 +176,7 @@ def pump(symbol,profit_flag=1,tf='15m',duration='2 day'):
             
     #z['Delta_change'].plot(secondary_y=True)
     
-    print(z['profit'])
+    print(len(z))
     return z
     #z.plot(subplots=True,layout=(6,3),figsize=(20,10))
 
@@ -276,7 +276,7 @@ def scan(symbols,tf,duration):
 #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
 @st.cache(allow_output_mutation=True)
-def plot_symbol(symbol,profit=0,tf='15m',duration='2 day'):
+def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
     #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
@@ -423,7 +423,7 @@ pf=st.number_input('filter for profit %',100.0)
 profit=len(df1[df1['profit']>=pf])
 st.write('win rate ',str(round(profit*100/len(df1),2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
-
+print(fig)
 fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
 config={'scrollZoom': True,'modeBarButtonsToAdd':['drawline',
                                         'drawopenpath',
