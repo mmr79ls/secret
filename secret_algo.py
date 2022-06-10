@@ -428,7 +428,7 @@ profit=len(df1[df1['profit']>=pf])
 st.write('win rate ',str(round(profit*100/len(df1),2)))
 symbol=st.sidebar.radio('Symbol',symbols_f)
 
-fig,z=plot_symbol(symbol,0,tf=tf,duration=6)
+fig,z=plot_symbol(symbol,0,tf=tf,duration='6 days')
 
 config={'scrollZoom': True,'modeBarButtonsToAdd':['drawline',
                                         'drawopenpath',
