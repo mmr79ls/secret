@@ -85,7 +85,7 @@ def get_orderbook(symbol):
   # orderbook=data.sort_values('quantity',ascending=False)[:6]
     return orderbook
 @st.cache(allow_output_mutation=True,suppress_st_warning=True)
-def pump(symbol,profit_flag=1,tf='15m',duration='2 days'):
+def pump(symbol,profit_flag=1,tf='15m',duration='5 days'):
     duration=str(duration) +"  ago UTC"
     df=pd.DataFrame(client.get_historical_klines(symbol.replace("/",""), tf, duration),columns=['Time','Open','High','Low','Close','Volume','Close time','Quote asset volume','Number of trades','Taker buy base asset volume','Taker buy quote asset volume','ignore'])
     df=df.astype( dtype={
@@ -277,7 +277,7 @@ def scan(symbols,tf,duration):
 #fig = make_subplots(specs=[[{"secondary_y": True}]])
 
 @st.cache(allow_output_mutation=True)
-def plot_symbol(symbol,profit=0,tf='1h',duration='3 day'):
+def plot_symbol(symbol,profit=0,tf='15m',duration='5 days'):
     #st.write(symbol)
     symbol=symbol.replace("/","")
     #st.write(symbol)
