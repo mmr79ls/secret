@@ -422,7 +422,7 @@ else :
 
 
 symbols_f=df1[df1['signal']!=0].symbol.unique()
-st.write(len(symbols_f))
+#st.write(len(symbols_f))
 pf=st.number_input('filter for profit %',100.0)
 profit=len(df1[df1['profit']>=pf])
 st.write('win rate ',str(round(profit*100/len(df1),2)))
